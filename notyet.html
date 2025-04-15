@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Not Yet</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(45deg, #d896ff, #be29ec), 
+                  repeating-linear-gradient(45deg, #800080, #800080 10px, transparent 10px, transparent 20px);
+    }
+  </style>
+</head>
+<body>
+  <div class="flex flex-col items-center justify-center h-screen">
+    <img src="./images/image2.gif" class="max-w-full h-[400px] rounded-lg shadow-xl">
+    <h2 id="valentinewuestion" class="text-4xl font-bold italic text-[#efbbff] my-4">awww do chu not like diss? :(</h2>
+    <div class="mt-8 flex gap-4">
+      <button onclick="cycleGifAndGrowNo()" 
+              class="bg-[#be29ec] hover:bg-[#800080] text-white font-bold py-3 px-6 rounded-full transition-all">
+        yeaa
+      </button>
+      <button onclick="redirectToCongrats()" 
+              class="bg-[#be29ec] hover:bg-[#800080] text-white font-bold py-3 px-6 rounded-full transition-all">
+        nopnop
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function cycleGifAndGrowNo() {
+      if (!window.yesClickCount) window.yesClickCount = 0;
+      if (window.yesClickCount >= 4) return;
+      
+      window.yesClickCount++;
+      
+      // Change GIF
+      const images = [
+        './images/image6.gif',
+        './images/image4.gif',
+        './images/image5.gif',
+        './images/image3.gif',
+      ];
+      const img = document.querySelector('img');
+      if (!window.currentImageIndex) {
+        window.currentImageIndex = images.indexOf(img.src);
+        if (window.currentImageIndex === -1) window.currentImageIndex = 0;
+      }
+      window.currentImageIndex = (window.currentImageIndex + 1) % images.length;
+      img.src = images[window.currentImageIndex];
+      
+      // Grow No button by 20%
+      const noButton = document.querySelector('button[onclick="redirectToCongrats()"]');
+      const scale = 1 + (window.yesClickCount * 0.2);
+      noButton.style.transform = 'scale(' + scale + ')';
+      
+      // Change button text on 4th click
+      if (window.yesClickCount === 4) {
+        const yesButton = document.querySelector('button[onclick="cycleGifAndGrowNo()"]');
+        yesButton.textContent = "your gonna make me cry :(";
+        yesButton.style.opacity = '0.7';
+      }
+    }
+
+    function redirectToCongrats() {
+      window.location.href = 'congrats.html';
+    }
+  </script>
+</body>
+</html>
